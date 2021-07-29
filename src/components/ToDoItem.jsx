@@ -5,7 +5,7 @@ function ToDoItem(props) {
 
   //Function to handle the action when an item is clicked.
   function handleClick() {
-    return setIsClicked((prevValue) => !prevValue);
+    return IsClicked ? setIsClicked(false) : setIsClicked(true);
   }
 
   return (

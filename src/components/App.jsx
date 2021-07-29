@@ -15,7 +15,11 @@ function App() {
   function handleClick() {
     setitemArray((prevValues) => {
       //Adding one more item to itemArray when the Add button is clicked
-      return [...prevValues, item];
+      if(item===null || item === ""){
+        return [...prevValues];
+      }
+      else
+        return [...prevValues, item];
     });
     setitem("");
   }
