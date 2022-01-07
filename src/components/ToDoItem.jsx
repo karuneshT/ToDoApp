@@ -5,17 +5,19 @@ function ToDoItem(props) {
 
   //Function to handle the action when an item is clicked.
   function handleClick() {
-    return IsClicked ? setIsClicked(false) : setIsClicked(true);
+    return (IsClicked ? setIsClicked(false) : setIsClicked(true));
   }
 
   return (
-    <li
-      onClick={handleClick}
-      onDoubleClick={() => {props.doubleClick(props.id);}}
-      style={{ textDecoration: IsClicked ? "line-through" : "none" }}
-    >
-    {props.item}
-    </li>
+    <div>
+      <li
+        onClick={handleClick}
+        onDoubleClick={() => {props.doubleClick(props.id)}}
+        style={{ textDecoration: IsClicked ? "line-through" : "none" }}
+      >
+      {props.item}
+      </li>
+    </div>
   );
 }
 

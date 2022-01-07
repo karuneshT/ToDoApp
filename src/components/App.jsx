@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import ToDoItem from "./ToDoItem";
 
 function App() {
   const [item, setitem] = useState("");
   const [itemArray, setitemArray] = useState([]);
+
+  useLayoutEffect(() => {
+    var storedItems=localStorage.getItem("items");
+    var storeditemArray=JSON.parse(storedItems);
+    // console.log(storeditemArray);
+    setitemArray(storeditemArray);
+  },[]);
+
+  useEffect(() => {
+    localStorage.setItem("items",JSON.stringify(itemArray));
+    // console.log(itemArray);
+  },[itemArray]);
 
   //Function to handle change on the input box
   function handleChange(event) {
@@ -13,14 +25,14 @@ function App() {
 
   //Handling single click functionality
   function handleClick() {
-    setitemArray((prevValues) => {
-      //Adding one more item to itemArray when the Add button is clicked
-      if(item===null || item === ""){
-        return [...prevValues];
-      }
-      else
-        return [...prevValues, item];
-    });
+    if(item===null || item===""){
+      return itemArray;
+    }
+    else{
+      setitemArray((prevValues) =>{
+        return [...prevValues,item]
+      });
+    }
     setitem("");
   }
 
@@ -36,6 +48,7 @@ function App() {
   }
 
   return (
+
     <div className="container">
       <div className="heading">
         <h1>To-Do List</h1>
@@ -48,14 +61,14 @@ function App() {
       </div>
       <div>
         <ul>
-          {itemArray.map((addedItem, index) => (
+          {itemArray.map((addedItem, index) => 
             <ToDoItem
               key={index}
               id={index}
               doubleClick={handleDoubleClick}//Passing state to child by passing function as a props to child component
               item={addedItem}
             />
-          ))}
+          )}
         </ul>
       </div>
       <div>
